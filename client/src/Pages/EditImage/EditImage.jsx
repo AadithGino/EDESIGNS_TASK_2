@@ -2,6 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
   Button,
   Checkbox,
   FormControl,
@@ -26,6 +30,8 @@ const EditImage = () => {
   const [paid, setPaid] = useState();
   const [ImageName,setImageName]=useState();
   const [tc, setTc] = useState(false);
+  const [error, setError] = useState(false);
+
   useEffect(() => {
     axios.get("http://localhost:8080/api/find-one?id=" + id).then((data) => {
       setTitle(data.data.Title);
@@ -62,14 +68,25 @@ const EditImage = () => {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((data) => {
-        navigate("/home");
+        navigate("/");
       })
       .catch((err) => {
-        console.log(err);
+        setError(err.response.data);
       });
   };
   return (
     <div style={{ width: "50%" }}>
+      {error ? (
+          <Alert status="error">
+            <AlertIcon />
+            <AlertTitle>Image already exists!</AlertTitle>
+            <AlertDescription>
+              Choose another image to continue.
+            </AlertDescription>
+          </Alert>
+        ) : (
+          ""
+        )}
       <FormControl>
       <FormControl>
           <img style={{width:"60px", height:"60px"}} src={userInfo.filepreview?userInfo.filepreview:"http://localhost:8080/images/"+ImageName} alt="" />

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 import {
   Alert,
   AlertDescription,
@@ -67,7 +68,7 @@ const AddImage = () => {
   return (
     <>
       <h1>ADD IMAGE</h1>
-      <div style={{ width: "50%" }}>
+       <div style={{ width: "50%" }}>
         {error ? (
           <Alert status="error">
             <AlertIcon />
@@ -150,7 +151,8 @@ const AddImage = () => {
             </Button>
           )}
         </FormControl>
-      </div>
+      </div> 
+     
     </>
   );
 };
